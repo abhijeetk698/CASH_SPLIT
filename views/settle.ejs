@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settle</title>
+</head>
+<body>
+    <div>
+        take from :-<br>
+        <% for(let person in owe){%>
+            <%=person%> : <%=owe[person]%>
+        <%}%>
+    </div>
+    <div>
+        pay to :-<br>
+        <% for(let person in debt){%>
+            <%=person%> : <%=debt[person]%>
+        <%}%>
+    </div>
+</body>
+</html>
