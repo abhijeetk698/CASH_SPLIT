@@ -1,0 +1,298 @@
+body {
+    background: #222D32;
+    font-family: 'Roboto','Alice', sans-serif;
+}
+
+.taskType{
+  border: darkblue 1px solid;
+  font-size: 12px;
+  padding: 2px 3px 2px 3px;
+  border-radius: 10px;
+  background: rgb(193, 233, 245);
+}
+.status{
+  border: darkgreen 1px solid;
+  padding: 2px 3px 2px 3px;
+  border-radius: 10px;
+  font-size: 12px;
+  background: rgb(100, 245, 213);
+}
+
+.new{
+    background: lightseagreen;
+    padding:10px 10px auto ;
+    display: block;
+}
+
+.formDiv{
+  background: white;
+}
+
+.tasks{
+    margin: 20px 20px 20px 20px;
+    background: white;
+    padding: 50px 20px 20px 50px;
+    border-radius: 10px;
+    border: 10px #0DB8DE solid;
+}
+
+.dueBy{
+  font-size: 10px;
+}
+
+#navbarItems{
+  margin-left: 50%;
+  margin-right:auto;
+}
+
+.btn{
+    min-width: 150px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.navbar-dark {
+    background-color: #0DB8DE;
+}
+.navbar .navbar-dark .navbar-expand-sm{
+    margin-bottom: 30px;
+}
+.navbar{
+    margin-bottom: 30px;
+}
+.containerBlock{
+    background: lightslategray;
+}
+
+#filterBlock{
+    background: lightslategray;
+    min-height: 400px;
+    position: relative;
+    padding: 10px;
+    border: 10px #0DB8DE solid;
+    border-radius: 10px;
+    margin:10px auto 10px auto;
+}
+
+
+.login-box {
+    margin-top: 75px;
+    height: auto;
+    background: #1A2226;
+    text-align: center;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.login-key {
+    height: 100px;
+    font-size: 80px;
+    line-height: 100px;
+    background: -webkit-linear-gradient(#27EF9F, #0DB8DE);
+    background-clip: content-box;
+    -webkit-background-clip : text;
+    -webkit-text-fill-color: transparent;
+}
+
+.login-title {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 30px;
+    letter-spacing: 2px;
+    margin-top: 15px;
+    font-weight: bold;
+    color: #ECF0F5;
+}
+
+.login-form {
+    margin-top: 25px;
+    text-align: left;
+}
+
+input[type=text] {
+    background-color: #1A2226;
+    border: none;
+    border-bottom: 2px solid #0DB8DE;
+    border-top: 0px;
+    border-radius: 0px;
+    font-weight: bold;
+    outline: 0;
+    margin-bottom: 20px;
+    padding-left: 0px;
+    color: #ECF0F5;
+}
+
+input[type=mail] {
+  background-color: #1A2226;
+  border: none;
+  border-bottom: 2px solid #0DB8DE;
+  border-top: 0px;
+  border-radius: 0px;
+  font-weight: bold;
+  outline: 0;
+  margin-bottom: 20px;
+  padding-left: 0px;
+  color: #ECF0F5;
+}
+
+input[type=password] {
+    background-color: #1A2226;
+    border: none;
+    border-bottom: 2px solid #0DB8DE;
+    border-top: 0px;
+    border-radius: 0px;
+    font-weight: bold;
+    outline: 0;
+    padding-left: 0px;
+    margin-bottom: 20px;
+    color: #ECF0F5;
+}
+
+.form-group {
+    margin-bottom: 40px;
+    outline: 0px;
+}
+
+.form-control:focus {
+    border-color: inherit;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-bottom: 2px solid #0DB8DE;
+    outline: 0;
+    background-color: #1A2226;
+    color: #ECF0F5;
+}
+
+input:focus {
+    outline: none;
+    box-shadow: 0 0 0;
+}
+
+label {
+    margin-bottom: 0px;
+}
+
+.form-control-label {
+    font-size: 10px;
+    color: white;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.btn-outline-primary {
+    border-color: #0DB8DE;
+    color: #0DB8DE;
+    border-radius: 0px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.btn-outline-primary:hover {
+    background-color: #0DB8DE;
+    right: 0px;
+}
+
+.login-btm {
+    float: left;
+}
+
+#navbtn{
+  background-color:orange;
+}
+
+
+.login-button {
+    padding-right: 0px;
+    text-align: right;
+    margin-bottom: 25px;
+}
+
+.login-text {
+    text-align: left;
+    padding-left: 0px;
+    color: #A2A4A4;
+}
+
+.loginbttm {
+    padding: 0px;
+}
+
+/******CLOCK************/
+@import url("https://fonts.googleapis.com/css?family=Orbitron");
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: border-box;
+  outline: none;
+}
+
+*, *::after, *::before {
+  box-sizing: inherit;
+}
+
+
+
+.alarm-clock {
+  position: relative;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #0DB8DE;
+}
+.alarm-clock .date {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  color: white;
+  font-size: 12px;
+  text-transform: uppercase;
+  transform: translateX(-50%);
+  z-index: 9;
+}
+.alarm-clock .time {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 40px 15px;
+  background-color: #333;
+  border-radius: 10px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 52px;
+}
+.alarm-clock .time span {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  color: #e74c3c;
+  text-shadow: 0 0 15px rgba(231, 76, 60, 0.4);
+  line-height: 1.75;
+}
+.alarm-clock .time span:nth-of-type(5) {
+  width: 90px;
+}
+.alarm-clock .time span.colon {
+  width: 12px;
+  text-align: center;
+  animation: blink 2s infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
