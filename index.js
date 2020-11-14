@@ -8,7 +8,7 @@ const localStrategy = require("passport-local");
 const app=express();
 const graphOp=require("./utils/graphOperations");
 
-const uri ="mongodb://localhost/cashSplit";
+const uri ="mongodb://localhost/cashSplitV2";
 mongoose
      .connect( uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true })
      .then(() => console.log( 'Database Connected...' ))
@@ -21,6 +21,7 @@ app.use(express.static("public"));
 /**********************DB CONFIG*******************/
 const Transaction=require("./models/transaction");
 const User=require("./models/user");
+const transaction = require("./models/transaction");
 
 /**********************PASSPORT CONFIG*****************/
 app.use(require("express-session")({
@@ -41,70 +42,90 @@ app.use((req,res,next)=>{
 
 
 app.get("/",isLoggedIn,(req,res)=>{
-    res.redirect("/dashboard");
+    res.redirect("/user");
 });
 
-app.get("/dashboard",isLoggedIn,(req,res)=>{
-    res.render("dashboard",{user:req.user});
-});
-
-app.get("/new",isLoggedIn,(req,res)=>{
-    res.render("new");
-})
-
-app.post("/new",isLoggedIn,(req,res)=>{
-    var amount=req.body.amount;
-    User.countDocuments({},(err,count)=>{
+app.get("/user",isLoggedIn,(req,res)=>{
+    User.find({},(err,users)=>{
         if(err){
+            console.log("error fetching the user");
+        }else{
+            global.allUsers=users;
+            let user1=req.user.username;
+            let txn=[];
+            Transaction.find({},(err,transactions)=>{
+                if(err){
+                    console.log("error while fetching the transactions");
+                    console.log(err);
+                }else{
+                    let n=transactions.length;
+                    for(var i=0;i<n;i++){
+                        let obj={};
+                        if((transactions[i].to===user1)||(transactions[i].from===user1)){
+                            obj["from"]=transactions[i].from;
+                            obj["to"]=transactions[i].to;
+                            obj["amount"]=transactions[i].amount;
+                            txn.push(obj);
+                        }
+                    }
+                    res.render("user",{currUser:req.user,allUsers:allUsers,txn:txn});
+                }
+            })    
+            
+        }
+    })
+});
+
+
+app.get("/user/:username",isLoggedIn,(req,res)=>{
+    let txn=[];
+    let index=0;
+    let user1=req.user.username;
+    let user2=req.params.username;
+    Transaction.find({},(err,transactions)=>{
+        if(err){
+            console.log("error while fetching the transactions");
             console.log(err);
         }else{
-            graphOp.addTransaction(req.user,(amount/count))
-            res.redirect("/");
+            let n=transactions.length;
+            for(var i=0;i<n;i++){
+                let obj={};
+                if((transactions[i].from===user1 && transactions[i].to===user2)||transactions[i].to===user1 && transactions[i].from===user2){
+                    obj["from"]=transactions[i].from;
+                    obj["to"]=transactions[i].to;
+                    obj["amount"]=transactions[i].amount;
+                    txn.push(obj);
+                }
+            }
         }
     })
-});
-
-app.get("/settle",isLoggedIn,(req,res)=>{
-    var userName=req.query.username;
-    User.find({username:userName},(err,user)=>{
-        if(err){console.log(err);}
-        else{
-            var owe={}; //+
-            var total={} //-
-            for(var i=0;i<user[0].givenTo.length;i++){
-                let person=user[0].givenTo[i];
-                let amount=user[0].givenAmount[i];
-                if(person in total){
-                    total[person]+=amount;
-                }else{
-                    total[person]=amount;
-                }
-            }
-            var debt={};
-            for(var i=0;i<user[0].takenFrom.length;i++){
-                let person=user[0].takenFrom[i];
-                let amount=user[0].takenAmount[i];
-                if(person in total){
-                    total[person]-=amount;
-                }else{
-                    total[person]= (-1)*amount;
-                }
-            }
-            for(person in total){
-                if(total[person]>0){
-                    owe[person]=total[person];
-                }if(total[person]<0){
-                    debt[person]=(-1)*total[person];
-                }
-            }
-            console.log(user[0]);
-            console.log(owe);
-            console.log(debt);
-            res.render("settle",{owe:owe,debt:debt});
-            // res.send("settle ??")
-        }
-    })
+    setTimeout(()=>{
+        console.log(txn);
+        res.render("transactions.ejs",{
+            user1:user1,
+            user2:user2,
+            txn:txn      
+        })
+    },1000);
 })
+
+
+app.post("/user/:username",isLoggedIn,(req,res)=>{
+    var amt=req.body.amount;
+    Transaction.create({
+        from:req.user.username,
+        to:req.params.username,
+        amount:amt,
+        doneBy:req.user.username
+    },(err,txn)=>{
+        if(err){
+            console.log("error generating transaction");
+        }else{
+            console.log(txn);
+            res.redirect(`/user/${req.params.username}`);
+        }
+    });
+})  
 
 //*********************************PASSPORT ROUTES ****************************************
 
@@ -124,7 +145,7 @@ app.post("/register",(req,res)=>{
             console.log(err.name);
             return res.redirect("/register");
         }passport.authenticate("local")(req,res,()=>{
-            res.redirect("/dashboard");
+            res.redirect("/user");
         });
     })
 });
@@ -135,7 +156,7 @@ app.get("/login",(req,res)=>{
 });
 
 app.post("/login",passport.authenticate("local",{
-    successRedirect:"/dashboard",
+    successRedirect:"/user",
     failureRedirect:"/register"
 }),(req,res)=>{
 });

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>transaction</title>
+</head>
+<body>  
+    <div>
+        <span>Transaction History : </span>
+        <%for(var i=0;i<txn.length;i++){%>
+            <div>
+                <%=txn[i].from%> --> <%=txn[i].to%> : <%=txn[i].amount%>
+            </div>
+        <%}%>
+    </div>
+
+    <form action="/user/<%=user2%>" method="POST">
+        <input type="text" name="amount" value="0">
+        <button type="submit">Pay</button>
+    </form>
+</body>
+</html>

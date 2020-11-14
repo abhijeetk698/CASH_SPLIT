@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DashBoard</title>
+</head>
+<body>
+    <h1> Welcome <%=currUser.username%></h1>
+    <div>
+        <h3>Users List :</h3>
+        <% for(var i=0;i<allUsers.length;i++){ %>
+            <div>
+                <%=i%> <%= allUsers[i].username %>
+                <a href="/user/<%=allUsers[i].username%>">Send Money</a>
+            </div>
+        <%}%>
+    </div>
+
+    <div>
+        <h3>Transactions History</h3>
+        <div>
+            <%for(var i=0;i<txn.length;i++){%>
+                <div>
+                    <%=txn[i].from%> --> <%=txn[i].to%> : <%=txn[i].amount%>
+                </div>
+            <%}%>
+        </div>
+    </div>
+</body>
+</html>

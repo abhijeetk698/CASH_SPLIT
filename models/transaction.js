@@ -1,14 +1,9 @@
 const mongoose = require("mongoose");
 
 var transactionSchema=new mongoose.Schema({
-    to_userID:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"User"
-    },
-    from_userID:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"User"
-    },
+    from:String,
+    to:String,
+    doneBy:String,
     amount:Number,
     created:{type:Date,default:Date.now}
 });
