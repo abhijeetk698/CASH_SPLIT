@@ -125,7 +125,146 @@ app.post("/user/:username",isLoggedIn,(req,res)=>{
             res.redirect(`/user/${req.params.username}`);
         }
     });
-})  
+}); 
+
+app.get("/settle",(req,res)=>{
+    let map1={};
+    let map2={};
+    for(let i=0;i<allUsers.length;i++){
+        map1[i]=allUsers[i].username;
+        map2[allUsers[i].username]=i;
+    }
+    let graph=new Array(allUsers.length);
+    for(let i=0;i<allUsers.length;i++){
+        graph[i]=new Array(allUsers.length);
+        for(let j=0;j<allUsers.length;j++){
+            graph[i][j]=0;
+        }
+    }
+    console.log(map2);
+    Transaction.find({},(err,txns)=>{
+        if(err){
+            console.log("error while fetching transactions");
+            console.log(err);
+        }else{
+            for(let i=0;i<txns.length;i++){
+                let user1=map2[txns[i].from];
+                let user2=map2[txns[i].to];
+                graph[user2][user1]+=txns[i].amount;
+            }
+            console.log(graph);
+            
+        }
+    })
+    setTimeout(()=>{
+        let N=allUsers.length;
+        function getMin(arr){
+            let minInd=0;
+            for(var i=1;i<N;i++){
+                if(arr[i]<arr[minInd]){
+                    minInd=i;
+                }
+            }
+            return minInd;
+        }
+        function getMax(arr){  
+            let maxInd=0;
+            for(let i=1;i<N;i++){
+                if(arr[i]>arr[maxInd]){
+                    maxInd=i;
+                }
+            }
+            return maxInd;
+        }
+
+        function minOf2(x,y) 
+        { 
+            return (x<y)? x: y; 
+        } 
+        1
+
+    // void minCashFlowRec(int amount[]) 
+    // { 
+    //     int mxCredit = getMax(amount), mxDebit = getMin(amount); 
+    //     if (amount[mxCredit] == 0 && amount[mxDebit] == 0) 
+    //         return; 
+    
+    //     int min = minOf2(-amount[mxDebit], amount[mxCredit]); 
+    //     amount[mxCredit] -= min; 
+    //     amount[mxDebit] += min; 
+    
+    //     cout << "Person " << mxDebit << " pays " << min 
+    //         << " to " << "Person " << mxCredit << endl; 
+    
+    //     minCashFlowRec(amount); 
+    // } 
+
+    let txns=[];
+
+    function minCashFlowRec(amt){
+        let obj={};
+        let mxCredit=getMax(amt),mxDebit=getMin(amt);
+        if((amt[mxCredit]===0) && (amt[mxDebit] == 0)){return;}
+        let min=minOf2(-amt[mxDebit],amt[mxCredit]);
+        amt[mxCredit] -= min;
+        amt[mxDebit] += min;
+        obj["from"]=map1[mxDebit];
+        obj["to"]=map1[mxCredit];
+        obj["amount"]=min;
+        txns.push(obj);
+        minCashFlowRec(amt);
+        return;
+    }
+
+
+    //  void minCashFlow(int graph[][N]) 
+    // { 
+    //     // Create an array amount[], initialize all value in it as 0. 
+    //     int amount[N] = {0}; 
+    
+    //     // Calculate the net amount to be paid to person 'p', and 
+    //     // stores it in amount[p]. The value of amount[p] can be 
+    //     // calculated by subtracting debts of 'p' from credits of 'p' 
+    //     for (int p=0; p<N; p++) 
+    //     for (int i=0; i<N; i++) 
+    //         amount[p] += (graph[i][p] -  graph[p][i]); 
+    
+    //     minCashFlowRec(amount); 
+    // } 
+       function minCashFlow(){
+           let amt=new Array(N);
+           for(let i=0;i<N;i++){amt[i]=0;}
+           for(let p=0;p<N;p++){
+               for(let i=0;i<N;i++){
+                   amt[p]+=(graph[i][p]-graph[p][i]);
+               }
+           }
+           minCashFlowRec(amt);
+       } 
+       minCashFlow();
+       let minTxns=[];
+       for(var i=0;i<txns.length;i++){
+           if(txns[i].from==req.user.username){
+                let obj={};
+                obj["verdict"]="GIVE";
+                obj["amount"]=txns[i].amount;
+                obj["user"]=txns[i].to;
+                minTxns.push(obj);
+           }if(txns[i].to==req.user.username){
+                let obj={};
+                obj["verdict"]="TAKE";
+                obj["amount"]=txns[i].amount;
+                obj["user"]=txns[i].from;
+                minTxns.push(obj);
+            }
+       }
+       console.log(minTxns);
+       res.render("settle.ejs",{txns:minTxns,currUser:req.user.username});
+    },1000);
+    
+})
+
+
 
 //*********************************PASSPORT ROUTES ****************************************
 
