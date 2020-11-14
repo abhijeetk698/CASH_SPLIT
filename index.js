@@ -65,6 +65,7 @@ app.get("/user",isLoggedIn,(req,res)=>{
                             obj["from"]=transactions[i].from;
                             obj["to"]=transactions[i].to;
                             obj["amount"]=transactions[i].amount;
+                            obj["created"]=transactions[i].created;
                             txn.push(obj);
                         }
                     }

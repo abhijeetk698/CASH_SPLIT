@@ -1,27 +1,7 @@
 body {
     background: #222D32;
     font-family: 'Roboto','Alice', sans-serif;
-}
-
-.taskType{
-  border: darkblue 1px solid;
-  font-size: 12px;
-  padding: 2px 3px 2px 3px;
-  border-radius: 10px;
-  background: rgb(193, 233, 245);
-}
-.status{
-  border: darkgreen 1px solid;
-  padding: 2px 3px 2px 3px;
-  border-radius: 10px;
-  font-size: 12px;
-  background: rgb(100, 245, 213);
-}
-
-.new{
-    background: lightseagreen;
-    padding:10px 10px auto ;
-    display: block;
+    margin-bottom: 200px;
 }
 
 .formDiv{
@@ -45,11 +25,6 @@ body {
   margin-right:auto;
 }
 
-.btn{
-    min-width: 150px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
 
 .navbar-dark {
     background-color: #0DB8DE;
@@ -217,82 +192,189 @@ label {
     padding: 0px;
 }
 
-/******CLOCK************/
-@import url("https://fonts.googleapis.com/css?family=Orbitron");
-html {
-  box-sizing: border-box;
-}
-*, *:before, *:after {
-  box-sizing: border-box;
-  outline: none;
+
+/******************/
+:root {
+	--dark-color-a: #13ccec;
+	--dark-color-b: #00b7ff;
+	--light-color: #e6e9ff;
+	--success-color: #5cb85c;
+	--error-color: #d9534f;
 }
 
-*, *::after, *::before {
-  box-sizing: inherit;
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
 }
 
 
 
-.alarm-clock {
-  position: relative;
-  padding: 10px;
-  border-radius: 10px;
-  background-color: #0DB8DE;
-}
-.alarm-clock .date {
-  position: absolute;
-  bottom: 15px;
-  left: 50%;
-  color: white;
-  font-size: 12px;
-  text-transform: uppercase;
-  transform: translateX(-50%);
-  z-index: 9;
-}
-.alarm-clock .time {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px 40px 15px;
-  background-color: #333;
-  border-radius: 10px;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 52px;
-}
-.alarm-clock .time span {
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  color: #e74c3c;
-  text-shadow: 0 0 15px rgba(231, 76, 60, 0.4);
-  line-height: 1.75;
-}
-.alarm-clock .time span:nth-of-type(5) {
-  width: 90px;
-}
-.alarm-clock .time span.colon {
-  width: 12px;
-  text-align: center;
-  animation: blink 2s infinite;
+ul {
+	list-style: none;
 }
 
-@keyframes blink {
-  0% {
-    opacity: 0;
-  }
-  30% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-  70% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
+a {
+	text-decoration: none;
+}
+
+
+
+/* Chat Page */
+
+.chat-container {
+	max-width: 1100px;
+	background: #fff;
+	margin: 30px auto;
+	overflow: hidden;
+}
+
+.chat-header {
+	background: var(--dark-color-a);
+	color: #fff;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	padding: 15px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.chat-main {
+	display: grid;
+	grid-template-columns: 1fr 3fr;
+}
+
+.chat-sidebar {
+	background: var(--dark-color-b);
+	color: #fff;
+	padding: 20px 20px 60px;
+	overflow-y: scroll;
+}
+
+.chat-sidebar h2 {
+	font-size: 20px;
+	background: rgba(0, 0, 0, 0.1);
+	padding: 10px;
+	margin-bottom: 20px;
+}
+
+.chat-sidebar h3 {
+	margin-bottom: 15px;
+}
+
+.chat-sidebar ul li {
+	padding: 10px 0;
+}
+
+.chat-messages {
+	padding: 30px;
+	max-height: 500px;
+	overflow-y: scroll;
+}
+
+.chat-messages .message {
+	padding: 10px;
+	margin-bottom: 15px;
+	background-color: var(--light-color);
+	border-radius: 5px;
+}
+
+.chat-messages .message .meta {
+	font-size: 15px;
+	font-weight: bold;
+	color: var(--dark-color-b);
+	opacity: 0.7;
+	margin-bottom: 7px;
+}
+
+.chat-messages .message .meta span {
+	color: #777;
+}
+
+.chat-form-container {
+	padding: 20px 30px;
+	background-color: var(--dark-color-a);
+}
+
+.chat-form-container form {
+	display: flex;
+}
+
+.chat-form-container input[type='text'] {
+	font-size: 16px;
+	padding: 5px;
+	height: 40px;
+	flex: 4;
+}
+.btn{
+    font-size: 16px;
+	padding: 5px;
+	height: 40px;
+	flex: 1;
+}
+/* Join Page */
+.join-container {
+	max-width: 500px;
+	margin: 80px auto;
+	color: #fff;
+}
+
+.join-header {
+	text-align: center;
+	padding: 20px;
+	background: var(--dark-color-a);
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+.join-main {
+	padding: 30px 40px;
+	background: var(--dark-color-b);
+}
+
+.join-main p {
+	margin-bottom: 20px;
+}
+
+#users{
+	min-height: 400px;
+}
+
+.join-main .form-control {
+	margin-bottom: 20px;
+}
+
+.join-main label {
+	display: block;
+	margin-bottom: 5px;
+}
+
+.join-main input[type='text'] {
+	font-size: 16px;
+	padding: 5px;
+	height: 40px;
+	width: 100%;
+}
+
+.join-main select {
+	font-size: 16px;
+	padding: 5px;
+	height: 40px;
+	width: 100%;
+}
+
+.join-main .btn {
+	margin-top: 20px;
+	width: 100%;
+}
+
+@media (max-width: 700px) {
+	.chat-main {
+		display: block;
+	}
+
+	.chat-sidebar {
+		display: none;
+	}
 }

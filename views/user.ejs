@@ -4,31 +4,71 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DashBoard</title>
-</head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Alice' rel='stylesheet'>
+    <link rel="stylesheet" href="../styles.css"> 
+</head>  
 <body>
-    <h1> Welcome <%=currUser.username%></h1>
-    <div>
-        <h3>Users List :</h3>
-        <% for(var i=0;i<allUsers.length;i++){ %>
-            <div>
-                <%=i%> <%= allUsers[i].username %>
-                <a href="/user/<%=allUsers[i].username%>">Send Money</a>
-            </div>
-        <%}%>
-    </div>
 
-    <div>
-        <h3>Transactions History</h3>
-        <div>
-            <%for(var i=0;i<txn.length;i++){%>
-                <div>
-                    <%=txn[i].from%> --> <%=txn[i].to%> : <%=txn[i].amount%>
-                </div>
-            <%}%>
-        </div>
+<nav class="navbar navbar-expand-lg navbar-dark ">
+    <a class="navbar-brand" href="/user"><i class="fa fa-file-text fa-lg" > </i> Cash-Split</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item text-right">
+            <span class="nav-link" style="color: white;">
+                <i class="fa fa-user-circle fa-lg"></i>
+                <strong>Welcome <%=currUser.username%></strong>
+            </span> 
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/logout"><i class="fa fa-power-off fa-lg"> </i> Logout</a>
+        </li>
+      </ul>
+  </nav>
+    <div style="margin : 20px auto 20px auto; align-content: center;">
+        <a class="btn btn-success new" style="width: 70%; margin-left:15% ;margin-right: 15%;"href="/settle ">SETTLE</a>
     </div>
-    <form action="/settle" method="GET">
-        <button type="submit">Settle</button>
-    </form>
+       
+    <div class="chat-container">
+        
+        <main class="chat-main">
+          <div class="chat-sidebar">
+            <h3><i class="fa fa-users"></i> Users</h3>
+            <ul id="users">
+                <% for(var i=0;i<allUsers.length;i++){ %>
+                    <li>
+                        <a href="/user/<%=allUsers[i].username%>" style="color: white;"><%= allUsers[i].username %></a>
+                    </li>
+                <%}%>
+            </ul>
+          </div>
+          <div>
+            <div style="text-align: center;"><h1>Transactions History</h1></div>
+            <div class="chat-messages">
+                <%for(var i=0;i<txn.length;i++){%>
+                    <div class="message row">
+                        <div class="col-lg-6">
+                            <p class="meta" > from : <%=txn[i].from%>  <span><%=txn[i].created%></span></p>
+                            <p class="meta" > to : <%=txn[i].to%></p>
+                        </div>    
+                        <div class="col-lg-6">
+                            <p class="text" style="font-size:35px;">
+                                <i class="fa fa-inr"></i><%=txn[i].amount%>
+                            </p>
+                        </div>
+                                                    
+                    </div>
+                <%}%>      
+            </div>
+        </div>
+        </main>
+       
+      </div>
+
 </body>
 </html>

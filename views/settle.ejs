@@ -3,13 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>settle</title>
-</head>
+    <title>Settle</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Alice' rel='stylesheet'>
+    <link rel="stylesheet" href="../styles.css"> 
+</head>  
 <body>
-    <% for(var i=0;i<txns.length;i++){%>
-        <div>
-            <%=txns[i].verdict%> : <%=txns[i].user%> amount = <%=txns[i].amount%>
-        </div>
-    <%}%>
+
+<nav class="navbar navbar-expand-lg navbar-dark ">
+    <a class="navbar-brand" href="/user"><i class="fa fa-file-text fa-lg" > </i> Cash-Split</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item text-right">
+            <span class="nav-link" style="color: white;">
+                <i class="fa fa-user-circle fa-lg"></i>
+                <strong>Welcome <%=currUser.username%></strong>
+            </span> 
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/logout"><i class="fa fa-power-off fa-lg"> </i> Logout</a>
+        </li>
+      </ul>
+  </nav>
+  <div class="chat-container" style="max-width: 500px;">
+        
+    <div>
+      <div style="text-align: center;"><h1>Cash Flow</h1></div>
+      <div class="chat-messages">
+          <%for(var i=0;i<txns.length;i++){%>
+              <div class="message row">
+                      
+                <div class="col-lg-4">
+                    <a href="/user/<%=txns[i].user%>"><%=txns[i].user%></a>
+                    
+                </div>   
+                <% if(txns[i].verdict=="GIVE"){%>
+                <div class="col-lg-8" style="color: rgba(255, 38, 0, 0.747);">
+                    <%=txns[i].verdict%> <i class="fa fa-inr"></i> <%=txns[i].amount%>
+                </div>
+                <%}else{%>
+                    <div class="col-lg-8" style="color: rgba(60, 121, 0, 0.747);"">
+                        <%=txns[i].verdict%>  :  <i class="fa fa-inr">  </i>  <%=txns[i].amount%>
+                    </div>
+                <%}%>
+             </div>
+          <%}%>
+         
+      </div>
+  </main>
 </body>
 </html>
