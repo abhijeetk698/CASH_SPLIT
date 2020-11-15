@@ -95,6 +95,7 @@ app.get("/user/:username",isLoggedIn,(req,res)=>{
                     obj["from"]=transactions[i].from;
                     obj["to"]=transactions[i].to;
                     obj["amount"]=transactions[i].amount;
+                    obj["created"]=transactions[i].created;
                     txn.push(obj);
                 }
             }
@@ -182,37 +183,24 @@ app.get("/settle",(req,res)=>{
         { 
             return (x<y)? x: y; 
         } 
-        1
-
-    // void minCashFlowRec(int amount[]) 
-    // { 
-    //     int mxCredit = getMax(amount), mxDebit = getMin(amount); 
-    //     if (amount[mxCredit] == 0 && amount[mxDebit] == 0) 
-    //         return; 
-    
-    //     int min = minOf2(-amount[mxDebit], amount[mxCredit]); 
-    //     amount[mxCredit] -= min; 
-    //     amount[mxDebit] += min; 
-    
-    //     cout << "Person " << mxDebit << " pays " << min 
-    //         << " to " << "Person " << mxCredit << endl; 
-    
-    //     minCashFlowRec(amount); 
-    // } 
-
     let txns=[];
 
     function minCashFlowRec(amt){
+        console.log("amt--> " +amt);
         let obj={};
         let mxCredit=getMax(amt),mxDebit=getMin(amt);
         if((amt[mxCredit]===0) && (amt[mxDebit] == 0)){return;}
         let min=minOf2(-amt[mxDebit],amt[mxCredit]);
         amt[mxCredit] -= min;
         amt[mxDebit] += min;
+        
+        console.log("min = "+min+" maxDebit "+mxDebit+' maxCrdit'+mxCredit);
         obj["from"]=map1[mxDebit];
         obj["to"]=map1[mxCredit];
         obj["amount"]=min;
+        console.log(obj);
         txns.push(obj);
+        
         minCashFlowRec(amt);
         return;
     }
@@ -235,6 +223,7 @@ app.get("/settle",(req,res)=>{
        function minCashFlow(){
            let amt=new Array(N);
            for(let i=0;i<N;i++){amt[i]=0;}
+           
            for(let p=0;p<N;p++){
                for(let i=0;i<N;i++){
                    amt[p]+=(graph[i][p]-graph[p][i]);
@@ -244,6 +233,7 @@ app.get("/settle",(req,res)=>{
        } 
        minCashFlow();
        let minTxns=[];
+       console.log(txns);
        for(var i=0;i<txns.length;i++){
            if(txns[i].from==req.user.username){
                 let obj={};
@@ -260,7 +250,7 @@ app.get("/settle",(req,res)=>{
             }
        }
        console.log(minTxns);
-       res.render("settle.ejs",{txns:minTxns,currUser:req.user.username});
+       res.render("settle.ejs",{txns:minTxns,currUser:req.user.username,alltxns:txns});
     },1000);
     
 })

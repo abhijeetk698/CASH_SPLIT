@@ -1,5 +1,8 @@
 body {
-    background: #222D32;
+    background-image: url('../images/wallpaper.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
     font-family: 'Roboto','Alice', sans-serif;
     margin-bottom: 200px;
 }
@@ -27,7 +30,7 @@ body {
 
 
 .navbar-dark {
-    background-color: #0DB8DE;
+    background-color: #013d7b;
 }
 .navbar .navbar-dark .navbar-expand-sm{
     margin-bottom: 30px;
@@ -223,7 +226,10 @@ a {
 /* Chat Page */
 
 .chat-container {
-	max-width: 1100px;
+    max-width: 1100px;
+    border-radius: 75px;
+    border-color: #4c0094;
+    border: 5px solid;
 	background: #fff;
 	margin: 30px auto;
 	overflow: hidden;
@@ -249,22 +255,27 @@ a {
 	background: var(--dark-color-b);
 	color: #fff;
 	padding: 20px 20px 60px;
-	overflow-y: scroll;
+    overflow-y: scroll;
+    align-items: center;
 }
 
 .chat-sidebar h2 {
 	font-size: 20px;
 	background: rgba(0, 0, 0, 0.1);
 	padding: 10px;
-	margin-bottom: 20px;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
 .chat-sidebar h3 {
-	margin-bottom: 15px;
+    align-items: center;
+    margin-bottom: 15px;
+    text-align: center;
 }
 
 .chat-sidebar ul li {
-	padding: 10px 0;
+    padding: 10px 0;
+    text-align: center;
 }
 
 .chat-messages {

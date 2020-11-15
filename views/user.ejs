@@ -31,7 +31,7 @@
       </ul>
   </nav>
     <div style="margin : 20px auto 20px auto; align-content: center;">
-        <a class="btn btn-success new" style="width: 70%; margin-left:15% ;margin-right: 15%;"href="/settle ">SETTLE</a>
+        <a class="btn btn-success new" style="width: 70%; margin-left:15% ;margin-right: 15%; border-radius: 50px;"href="/settle ">SETTLE</a>
     </div>
        
     <div class="chat-container">
@@ -41,20 +41,21 @@
             <h3><i class="fa fa-users"></i> Users</h3>
             <ul id="users">
                 <% for(var i=0;i<allUsers.length;i++){ %>
-                    <li>
+                    <li style="border-bottom:rgb(189, 248, 243) solid 1px; border-radius: 10px;">
                         <a href="/user/<%=allUsers[i].username%>" style="color: white;"><%= allUsers[i].username %></a>
                     </li>
                 <%}%>
             </ul>
           </div>
           <div>
-            <div style="text-align: center;"><h1>Transactions History</h1></div>
+            <div style="text-align: center; color: white;background-color: #00b7ff; border-bottom: 2px solid black; padding: 10px;"><h1>Transactions History</h1></div>
             <div class="chat-messages">
                 <%for(var i=0;i<txn.length;i++){%>
                     <div class="message row">
                         <div class="col-lg-6">
-                            <p class="meta" > from : <%=txn[i].from%>  <span><%=txn[i].created%></span></p>
+                            <p class="meta" > from : <%=txn[i].from%> </p>
                             <p class="meta" > to : <%=txn[i].to%></p>
+                            <span style="color: gray; font-size: small;"><%=txn[i].created%></span>
                         </div>    
                         <div class="col-lg-6">
                             <p class="text" style="font-size:35px;">
@@ -70,5 +71,8 @@
        
       </div>
 
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>

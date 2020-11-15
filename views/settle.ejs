@@ -19,6 +19,14 @@
   
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
+        <li class="dropdown">
+            <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" style="color: white;"><strong>Transactions</strong>
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#" id="urT">Your Transaction</a></li>
+              <li><a href="#" id="allT">All Transaction</a></li>
+            </ul>
+          </li>
         <li class="nav-item text-right">
             <span class="nav-link" style="color: white;">
                 <i class="fa fa-user-circle fa-lg"></i>
@@ -30,31 +38,63 @@
         </li>
       </ul>
   </nav>
-  <div class="chat-container" style="max-width: 500px;">
-        
-    <div>
-      <div style="text-align: center;"><h1>Cash Flow</h1></div>
-      <div class="chat-messages">
+  <div class="chat-container" style="max-width: 500px; min-height: 500px; border: 3px solid #00b7ff;">
+      <div style="text-align: center;background-color: #00b7ff ;padding: 5px;"><h1>Cash Flow</h1></div>
+      <div class="chat-messages" id="txns">
           <%for(var i=0;i<txns.length;i++){%>
               <div class="message row">
                       
                 <div class="col-lg-4">
-                    <a href="/user/<%=txns[i].user%>"><%=txns[i].user%></a>
+                    <p class="meta" style="font-size: 20px;"><a href="/user/<%=txns[i].user%>"><%=txns[i].user%></a></p>
                     
                 </div>   
-                <% if(txns[i].verdict=="GIVE"){%>
-                <div class="col-lg-8" style="color: rgba(255, 38, 0, 0.747);">
-                    <%=txns[i].verdict%> <i class="fa fa-inr"></i> <%=txns[i].amount%>
+                <% if(txns[i].verdict==="GIVE"){%>
+                <div class="col-lg-8" style="font-size: 25px;">
+                    <span  style="color: rgba(255, 38, 0, 0.747); padding: 10px;"><%=txns[i].verdict%></span> <span> <i class="fa fa-inr"></i> <%=txns[i].amount%></span>
                 </div>
                 <%}else{%>
-                    <div class="col-lg-8" style="color: rgba(60, 121, 0, 0.747);"">
-                        <%=txns[i].verdict%>  :  <i class="fa fa-inr">  </i>  <%=txns[i].amount%>
+                    <div class="col-lg-8" style="font-size: 25px;">
+                        <span style="color: rgba(60, 121, 0, 0.747); padding: 10px;"><%=txns[i].verdict%></span>  :<span><i class="fa fa-inr">  </i>  <%=txns[i].amount%></span>
                     </div>
                 <%}%>
              </div>
           <%}%>
-         
       </div>
-  </main>
-</body>
-</html>
+      <div class="chat-messages" id="alltxns" style="display: none;">
+        <%for(var i=0;i<alltxns.length;i++){%>
+            <div class="message row">
+                <div class="col-lg-6">
+                    <p class="meta" > from : <%=alltxns[i].from%> </p>
+                    <p class="meta" > to : <%=alltxns[i].to%></p>
+                </div>    
+                <div class="col-lg-6">
+                    <p class="text" style="font-size:35px;">
+                        <i class="fa fa-inr"></i><%=alltxns[i].amount%>
+                    </p>
+                </div>
+                                            
+            </div>
+        <%}%>      
+    </div>
+  </div>
+
+  <script>
+      var urT=document.querySelector("#urT");
+      var allT=document.querySelector("#allT");
+      var txns=document.querySelector("#txns");
+      var alltxns=document.querySelector("#alltxns");
+      urT.addEventListener("click",()=>{
+          txns.style.display="block";
+          alltxns.style.display="none";
+      });
+      allT.addEventListener("click",()=>{
+          txns.style.display="none";
+          alltxns.style.display="block";
+      })
+
+  </script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+  </html>
