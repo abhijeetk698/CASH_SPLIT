@@ -129,7 +129,7 @@ app.post("/user/:username",isLoggedIn,(req,res)=>{
     });
 }); 
 
-app.get("/settle",(req,res)=>{
+app.get("/settle",isLoggedIn,(req,res)=>{
     let map1={};
     let map2={};
     for(let i=0;i<allUsers.length;i++){
