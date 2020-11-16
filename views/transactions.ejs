@@ -42,15 +42,15 @@
                     
                         <% if(txn[i].from===user1){%>
                         <div class="message" style="border-radius: 40px 40px 0px 40px">
-                            <p class="meta" style="text-align: right;"> <%=user1%> <span style="color: gray; font-size: small;"><%=txn[i].created.toDateString()%></span>
-                            <p class="text" style="text-align: left;font-size:35px;">
+                            <p class="meta" style="text-align: left;"> <%=user1%> <span style="color: gray; font-size: small;"><%=txn[i].created.toDateString()%></span>
+                            <p class="text" style="text-align: right;font-size:35px;">
                                 <i class="fa fa-inr"></i>  <%=txn[i].amount%>
                             </p>
                         </div>
                         <%}else{%>
                         <div class="message" style="border-radius: 0px 40px 40px 40px;">
-                            <p class="meta"> <%=txn[i].from%>  <span style="color: gray; font-size: small;"><%=txn[i].created.toDateString()%></span>
-                            <p class="text" style="font-size:35px; text-align: right;">
+                            <p class="meta" style="text-align: right;"> <%=txn[i].from%> <span style="color: gray; font-size: small;"><%=txn[i].created.toDateString()%></span>
+                            <p class="text" style="font-size:35px; text-align: left;">
                                 <i class="fa fa-inr"></i>  <%=txn[i].amount%>
                             </p>
                         </div>        
