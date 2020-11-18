@@ -8,7 +8,7 @@ const localStrategy = require("passport-local");
 const app=express();
 const graphOp=require("./utils/graphOperations");
 
-const uri = "mongodb+srv://abhijeet:dirtyclown@cluster0-lyzlv.mongodb.net/<dbname>?retryWrites=true&w=majority";
+const uri = "mongodb+srv://abhijeet:dirtyclown@cluster0-lyzlv.mongodb.net/CashSplit?retryWrites=true&w=majority";
 mongoose
      .connect( uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true })
      .then(() => console.log( 'Database Connected...' ))
