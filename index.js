@@ -6,9 +6,8 @@ const passport=require("passport");
 const localStrategy = require("passport-local");
 
 const app=express();
-const graphOp=require("./utils/graphOperations");
 
-const uri = "mongodb+srv://abhijeet:dirtyclown@cluster0-lyzlv.mongodb.net/CashSplit?retryWrites=true&w=majority";
+const uri = "mongodb://localhost/cashSplitV3";
 mongoose
      .connect( uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true })
      .then(() => console.log( 'Database Connected...' ))
@@ -204,22 +203,6 @@ app.get("/settle",isLoggedIn,(req,res)=>{
         minCashFlowRec(amt);
         return;
     }
-
-
-    //  void minCashFlow(int graph[][N]) 
-    // { 
-    //     // Create an array amount[], initialize all value in it as 0. 
-    //     int amount[N] = {0}; 
-    
-    //     // Calculate the net amount to be paid to person 'p', and 
-    //     // stores it in amount[p]. The value of amount[p] can be 
-    //     // calculated by subtracting debts of 'p' from credits of 'p' 
-    //     for (int p=0; p<N; p++) 
-    //     for (int i=0; i<N; i++) 
-    //         amount[p] += (graph[i][p] -  graph[p][i]); 
-    
-    //     minCashFlowRec(amount); 
-    // } 
        function minCashFlow(){
            let amt=new Array(N);
            for(let i=0;i<N;i++){amt[i]=0;}
